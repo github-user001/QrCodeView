@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CodeScanner
 
 class QrCodeViewModel: ObservableObject {
     
@@ -22,6 +23,26 @@ class QrCodeViewModel: ObservableObject {
     
     var viewState: QrCodeViewState {
         return qrCode == nil ? QrCodeViewState.scanning : QrCodeViewState.displaying
+    }
+}
+
+struct QrCodeScanningView: View {
+    
+    @State var scannedCode: String?
+    
+    var body: some View {
+        CodeScannerView(
+            codeTypes: [.qr],
+            simulatedData: "fake text because the simulator aint got no camera access") { result in
+                
+            switch result {
+            case .success(let code):
+                print("Found code: \(code)")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
     }
 }
 
@@ -63,7 +84,7 @@ struct QrCodeView: View {
         VStack {
             switch qrCodeViewModel.viewState {
             case .scanning:
-               Text("Todo: Scanning for QR Code")
+               QrCodeScanningView()
             case .displaying:
                 QrCodeDisplayView(qrCode: qrCodeViewModel.qrCode!)
             }

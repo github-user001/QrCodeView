@@ -7,15 +7,27 @@
 
 import SwiftUI
 
+class ViewModel: ObservableObject {
+    @Published var count = 1
+    
+    func inc() {
+        count += 1
+    }
+}
+
 struct ContentView: View {
+    @ObservedObject var viewModel: ViewModel
     var body: some View {
-        Text("Hello, world!")
+        Text("\(viewModel.count)")
             .padding()
+        Button("Inc") {
+            viewModel.inc()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ViewModel())
     }
 }

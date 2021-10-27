@@ -11,7 +11,7 @@ import SwiftUI
 struct QrCodeViewApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: ViewModel())
         }
     }
 }

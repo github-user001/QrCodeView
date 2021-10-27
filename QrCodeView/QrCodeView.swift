@@ -31,21 +31,28 @@ struct QrCodeScanningView: View {
     @State var scannedCode: String?
     
     var body: some View {
-        CodeScannerView(
-            codeTypes: [.qr],
-            simulatedData: "fake text because the simulator aint got no camera access") { result in
-                
-            switch result {
-            case .success(let code):
-                print("Found code: \(code)")
-            case .failure(let error):
-                print(error.localizedDescription)
+        VStack {
+            
+            if scannedCode != nil {
+                Text("Your scanned code: \(scannedCode!)")
             }
+            
+            CodeScannerView(
+                codeTypes: [.qr],
+                simulatedData: "fake text because the simulator aint got no camera access") { result in
+                    
+                switch result {
+                case .success(let code):
+                    print("Found code: \(code)")
+                    scannedCode = code
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+            
         }
-
     }
 }
-
 
 struct QrCodeDisplayView: View {
     var qrCode: String
@@ -54,7 +61,7 @@ struct QrCodeDisplayView: View {
         VStack {
             Image(uiImage: UIImage(data: getQRCodeDate(text: qrCode)!)!)
                 .resizable()
-                .frame(width: 200, height: 200)
+                .frame(width: QrCodeSize, height: QrCodeSize)
         }
     }
     
@@ -70,6 +77,7 @@ struct QrCodeDisplayView: View {
     }
 }
 
+let QrCodeSize = 200.0
 
 struct QrCodeView: View {
     
@@ -89,8 +97,9 @@ struct QrCodeView: View {
                 QrCodeDisplayView(qrCode: qrCodeViewModel.qrCode!)
             }
         }
-            .padding()
             .background(Color.green)
+            .padding()
+            .frame(width: 250, height: 250)
     }
 }
 

@@ -8,57 +8,68 @@
 import SwiftUI
 
 class QrCodeViewModel: ObservableObject {
-    @Published var count = 1
     
-    func inc() {
-        count += 1
+    var qrCode: String?
+    
+    init(_ qrCode: String?) {
+        self.qrCode = qrCode
+    }
+    
+    enum QrCodeViewState: String {
+        case scanning = "Scanning";
+        case displaying = "Displaying"
+    }
+    
+    var viewState: QrCodeViewState {
+        return qrCode == nil ? QrCodeViewState.scanning : QrCodeViewState.displaying
     }
 }
 
-enum QrCodeViewState: String {
-    case scanning = "Scanning";
-    case displaying = "Displaying"
-}
 
 struct QrCodeDisplayView: View {
     var qrCode: String
     
     var body: some View {
         VStack {
-            Text("Your QR code is: \(qrCode)")
+            Image(uiImage: UIImage(data: getQRCodeDate(text: qrCode)!)!)
+                .resizable()
+                .frame(width: 200, height: 200)
         }
+    }
+    
+    func getQRCodeDate(text: String) -> Data? {
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        let data = text.data(using: .ascii, allowLossyConversion: false)
+        filter.setValue(data, forKey: "inputMessage")
+        guard let ciimage = filter.outputImage else { return nil }
+        let transform = CGAffineTransform(scaleX: 10, y: 10)
+        let scaledCIImage = ciimage.transformed(by: transform)
+        let uiimage = UIImage(ciImage: scaledCIImage)
+        return uiimage.pngData()!
     }
 }
 
 
 struct QrCodeView: View {
-    @ObservedObject private var qrCodeViewModel = QrCodeViewModel()
-    var qrCode: String?
     
-    var viewState: QrCodeViewState {
-        return qrCode == nil ? QrCodeViewState.scanning : QrCodeViewState.displaying
+    @ObservedObject private var qrCodeViewModel: QrCodeViewModel
+    
+    init(_ qrCode: String? = nil) {
+        self.qrCodeViewModel = QrCodeViewModel(qrCode)
     }
     
     var body: some View {
-        Text("\(qrCodeViewModel.count)")
-            .padding()
         
         VStack {
-            
-            switch viewState {
+            switch qrCodeViewModel.viewState {
             case .scanning:
                Text("Todo: Scanning for QR Code")
             case .displaying:
-                QrCodeDisplayView(qrCode: qrCode!)
+                QrCodeDisplayView(qrCode: qrCodeViewModel.qrCode!)
             }
-            }
-        
-//        Text("\(viewState.rawValue)")
-//            .padding()
-//
-//        Button("Inc") {
-//            qrCodeViewModel.inc()
-//        }
+        }
+            .padding()
+            .background(Color.green)
     }
 }
 

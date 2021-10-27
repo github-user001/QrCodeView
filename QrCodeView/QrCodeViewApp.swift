@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct QrCodeViewApp: App {
-//    let qrCodeToShow = "662ezJ2dRZr8DKoBrb6RZGPTdtLcBfJqho8pY7HBgtj2"
+    let qrCodeToShow = "662ezJ2dRZr8DKoBrb6RZGPTdtLcBfJqho8pY7HBgtj2"
     var body: some Scene {
         WindowGroup {
-//            QrCodeView(qrCode: qrCodeToShow)
+            QrCodeView(qrCodeToShow)
             QrCodeView()
         }
     }

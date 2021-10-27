@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CodeScanner
+import CoreHaptics
 
 class QrCodeViewModel: ObservableObject {
     
@@ -55,14 +56,54 @@ struct QrCodeScanningView: View {
 }
 
 struct QrCodeDisplayView: View {
+    @State private var engine: CHHapticEngine?
     var qrCode: String
-    
+
     var body: some View {
         VStack {
+            
             Image(uiImage: UIImage(data: getQRCodeDate(text: qrCode)!)!)
                 .resizable()
                 .frame(width: QrCodeSize, height: QrCodeSize)
+            
+            Text("Tap to copy your address to the Clipboard")
+            
+        }.onTapGesture {
+            UIPasteboard.general.setValue(qrCode, forPasteboardType: "public.plain-text")
+            vibrateDevice()
         }
+    }
+    
+    func vibrateDevice() {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        
+//        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
+//        var events = [CHHapticEvent]()
+//        print("here?")
+//
+//        // create one intense, sharp tap
+//        for i in stride(from: 0, to: 1, by: 0.1) {
+//            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(i))
+//            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(i))
+//            let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: i)
+//            events.append(event)
+//        }
+//
+//        for i in stride(from: 0, to: 1, by: 0.1) {
+//            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(1 - i))
+//            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(1 - i))
+//            let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 1 + i)
+//            events.append(event)
+//        }
+//
+//        // convert those events into a pattern and play it immediately
+//        do {
+//            let pattern = try CHHapticPattern(events: events, parameters: [])
+//            let player = try engine?.makePlayer(with: pattern)
+//            try player?.start(atTime: 0)
+//        } catch {
+//            print("Failed to play pattern: \(error.localizedDescription).")
+//        }
     }
     
     func getQRCodeDate(text: String) -> Data? {
@@ -77,7 +118,7 @@ struct QrCodeDisplayView: View {
     }
 }
 
-let QrCodeSize = 200.0
+let QrCodeSize = 300.0
 
 struct QrCodeView: View {
     

@@ -47,7 +47,7 @@ struct QrCodeView: View {
             
             switch viewState {
             case .scanning:
-               Text("Todo")
+               Text("Todo: Scanning for QR Code")
             case .displaying:
                 QrCodeDisplayView(qrCode: qrCode!)
             }

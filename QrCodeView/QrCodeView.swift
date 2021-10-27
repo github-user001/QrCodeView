@@ -20,6 +20,16 @@ enum QrCodeViewState: String {
     case displaying = "Displaying"
 }
 
+struct QrCodeDisplayView: View {
+    var qrCode: String
+    
+    var body: some View {
+        VStack {
+            Text("Your QR code is: \(qrCode)")
+        }
+    }
+}
+
 
 struct QrCodeView: View {
     @ObservedObject private var qrCodeViewModel = QrCodeViewModel()
@@ -33,12 +43,22 @@ struct QrCodeView: View {
         Text("\(qrCodeViewModel.count)")
             .padding()
         
-        Text("\(viewState.rawValue)")
-            .padding()
+        VStack {
+            
+            switch viewState {
+            case .scanning:
+               Text("Todo")
+            case .displaying:
+                QrCodeDisplayView(qrCode: qrCode!)
+            }
+            }
         
-        Button("Inc") {
-            qrCodeViewModel.inc()
-        }
+//        Text("\(viewState.rawValue)")
+//            .padding()
+//
+//        Button("Inc") {
+//            qrCodeViewModel.inc()
+//        }
     }
 }
 

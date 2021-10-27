@@ -8,6 +8,7 @@
 import SwiftUI
 import CodeScanner
 import CoreHaptics
+import ToastSwiftUI
 
 class QrCodeViewModel: ObservableObject {
     
@@ -58,6 +59,8 @@ struct QrCodeScanningView: View {
 struct QrCodeDisplayView: View {
     @State private var engine: CHHapticEngine?
     var qrCode: String
+    
+    @State var toastMessage: String?
 
     var body: some View {
         VStack {
@@ -71,7 +74,12 @@ struct QrCodeDisplayView: View {
         }.onTapGesture {
             UIPasteboard.general.setValue(qrCode, forPasteboardType: "public.plain-text")
             vibrateDevice()
-        }
+            showCopiedSuccessMessage()
+        }.toast($toastMessage)
+    }
+    
+    func showCopiedSuccessMessage() {
+       toastMessage = "Address \(qrCode) copied to clipboard"
     }
     
     func vibrateDevice() {

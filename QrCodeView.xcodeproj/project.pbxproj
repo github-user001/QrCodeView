@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C4F504442728EFB800F5AE3A /* QrCodeViewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F504432728EFB800F5AE3A /* QrCodeViewApp.swift */; };
-		C4F504462728EFB800F5AE3A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F504452728EFB800F5AE3A /* ContentView.swift */; };
+		C4F504462728EFB800F5AE3A /* QrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F504452728EFB800F5AE3A /* QrCodeView.swift */; };
 		C4F504482728EFBB00F5AE3A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F504472728EFBB00F5AE3A /* Assets.xcassets */; };
 		C4F5044B2728EFBB00F5AE3A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4F5044A2728EFBB00F5AE3A /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		C4F504402728EFB800F5AE3A /* QrCodeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QrCodeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F504432728EFB800F5AE3A /* QrCodeViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeViewApp.swift; sourceTree = "<group>"; };
-		C4F504452728EFB800F5AE3A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C4F504452728EFB800F5AE3A /* QrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeView.swift; sourceTree = "<group>"; };
 		C4F504472728EFBB00F5AE3A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4F5044A2728EFBB00F5AE3A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C4F5044C2728EFBB00F5AE3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				C4F504432728EFB800F5AE3A /* QrCodeViewApp.swift */,
-				C4F504452728EFB800F5AE3A /* ContentView.swift */,
+				C4F504452728EFB800F5AE3A /* QrCodeView.swift */,
 				C4F504472728EFBB00F5AE3A /* Assets.xcassets */,
 				C4F5044C2728EFBB00F5AE3A /* Info.plist */,
 				C4F504492728EFBB00F5AE3A /* Preview Content */,
@@ -138,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4F504462728EFB800F5AE3A /* ContentView.swift in Sources */,
+				C4F504462728EFB800F5AE3A /* QrCodeView.swift in Sources */,
 				C4F504442728EFB800F5AE3A /* QrCodeViewApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct QrCodeViewApp: App {
+    let qrCodeToShow = "my actual public key in solana"
     var body: some Scene {
         WindowGroup {
-            ContentView(viewModel: ViewModel())
+            QrCodeView(qrCode: qrCodeToShow)
         }
     }
 }
